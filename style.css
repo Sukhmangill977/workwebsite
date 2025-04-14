@@ -107,6 +107,13 @@
     z-index: 2;
   }
   
+  .highlight-line {
+    background-color: rgba(173, 216, 230, 0.5); /* light blue with transparency */
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    color: #fff; /* Keeps contrast on dark bg */
+  }
   
   /* Services */
 .services {
@@ -160,16 +167,46 @@
   
   
   /* About */
-  .about, .contact {
+.about {
     padding: 4rem 2rem;
-    text-align: center;
     background: #f4f4f4;
+    
+  }
+  
+  .about h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .about p {
+    text-align: justify;
+    margin: 0 auto 1.5rem;
+    max-width: 800px;
+    line-height: 1.6;
+  }
+  .contact {
+    padding: 4rem 2rem;
+    background: #f4f4f4;
+    
+  }
+  
+  .about h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .about p {
+    text-align: justify;
+    margin: 0 auto 1.5rem;
+    max-width: 800px;
+    line-height: 1.6;
   }
   
   /* Contact */
   form {
     display: flex;
     flex-direction: column;
+    
     gap: 1rem;
     max-width: 500px;
     margin: 0 auto;
@@ -277,7 +314,8 @@
   
   /* FAQ */
   .faq {
-    background: #f9f9f9;
+    background: url('assets/images/w.png') no-repeat center center/cover;
+    
     padding: 4rem 2rem;
     text-align: center;
   }
