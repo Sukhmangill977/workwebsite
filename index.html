@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="mediaqueries.css" />
+  <!-- Include Typed.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+</head>
+
+<body>
+  <div id="logo-container">
+    <div class="logo" id="logo">Sukhman Gill</div>
+  </div>
+
+  <nav id="desktop-nav">
+    <div class="logo" id="logo-nav">Sukhman Gill</div>
+    <div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <canvas id="fireworks"></canvas>
+
+
+  <nav id="hamburger-nav">
+    <div class="logo" id="logo-mobile">Sukhman Gill</div>
+    <div class="hamburger-menu">
+      <div class="hamburger-icon" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="menu-links">
+        <li><a href="#about" onclick="toggleMenu()">About</a></li>
+        <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
+        <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+        <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+      </div>
+    </div>
+  </nav>
+
+  <section id="profile">
+    <div class="section__pic-container">
+      <div class="profile-border">
+        <img src="./assets/profile-pic.png" alt="John Doe profile picture" class="drift-left" />
+      </div>
+    </div>
+    <div class="section__text drift-right">
+      <p class="section__text__p1">Hello, I'm</p>
+      <h1 class="title">Sukhman Gill</h1>
+      <p class="section__text__p2 typed-container"><span class="typed-text"></span></p>
+      <div class="btn-container">
+        <button class="btn btn-color-2" onclick="window.open('./assets/resume.pdf')">
+          Download CV
+        </button>
+        <button class="btn btn-color-1" onclick="location.href='./#contact'">
+          Contact Info
+        </button>
+      </div>
+      <div id="socials-container">
+        <img src="./assets/linkedin.png" alt="My LinkedIn profile" class="icon"
+          onclick="location.href='https://www.linkedin.com/in/sukhman-gill-486741224/'" />
+        <img src="./assets/github.png" alt="My Github profile" class="icon"
+          onclick="location.href='https://github.com/Sukhmangill977'" />
+      </div>
+    </div>
+  </section>
+  <section id="about">
+    <p class="section__text__p1 fade-in">Get To Know More</p>
+    <h1 class="title fade-in">About Me</h1>
+    <div class="section-container">
+      <div class="section__pic-container fade-in">
+        <img src="./assets/about-pic.png" alt="Profile picture" class="about-pic scale-effect" />
+      </div>
+      <div class="about-details-container">
+        <div class="about-containers">
+          <div class="details-container move-in-left">
+            <img src="./assets/experience.png" alt="Experience icon" class="icon" />
+            <h3>Experience</h3>
+            <p>3+ years <br />Full Stack Developer</p>
+          </div>
+          <div class="details-container move-in-right">
+            <img src="./assets/education.png" alt="Education icon" class="icon" />
+            <h3>Education</h3>
+            <p>B.Tech Computer Science</p>
+          </div>
+        </div>
+        <div class="text-container fade-in">
+          <p>
+            Successfully led the development of diverse projects, leveraging
+            technologies like the MERN stack, React, WebRTC, and Firebase to solve
+            real-world problems. Delivered solutions such as College Connect to
+            bridge communication gaps in educational institutions and a Hospital
+            Management System to streamline patient and facility management.
+            Enhanced my technical knowledge through industry-relevant workshops on
+            Quantum Computing and Cloud Computing with AWS. Transformed design
+            concepts into responsive web interfaces with HTML/CSS, adding
+            interactive features to elevate user experience​.
+          </p>
+        </div>
+      </div>
+    </div>
+    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" onclick="location.href='./#experience'" />
+  </section>
+
+
+
+  <section id="experience">
+    <p class="section__text__p1">Explore My</p>
+    <h1 class="title">Skills</h1>
+    <div class="experience-details-container">
+      <!-- First Column: Frontend and Full Stack -->
+      <div class="about-containers">
+        <div class="details-container">
+          <h2 class="experience-sub-title">Frontend & Full Stack Development</h2>
+          <div class="article-container">
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>HTML</h3>
+                <p>Experienced</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>CSS</h3>
+                <p>Experienced</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>JavaScript</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>AWS</h3>
+                <p>BASIC</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>React</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Node JS</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Express JS</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>MongoDB</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Column: Backend, DevOps, and Cloud -->
+      <div class="about-containers">
+        <div class="details-container">
+          <h2 class="experience-sub-title">Backend, DevOps & Cloud Technologies</h2>
+          <div class="article-container">
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Python</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>MySQL</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Docker</h3>
+                <p>Basic</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Git</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Github</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Jenkins</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Postman</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>C, C++</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" onclick="location.href='./#projects'" />
+  </section>
+  <section id="projects">
+    <p class="section__text__p1">Browse My Recent</p>
+    <h1 class="title">Projects</h1>
+    <div class="experience-details-container">
+      <div class="projects-grid">
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img src="./assets/project-1.png" alt="Project 1" class="project-img" />
+          </div>
+          <h2 class="experience-sub-title project-title">COLLEGE CONNECT</h2>
+          <div class="btn-container">
+            <button class="btn btn-color-2 project-btn"
+              onclick="location.href='https://github.com/Sukhmangill977/Academics'">Github</button>
+            <button class="btn btn-color-2 project-btn"
+              onclick="location.href='https://edconnect-dashboard-blond.vercel.app'">Live Demo</button>
+          </div>
+        </div>
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img src="./assets/project-2.png" alt="Project 2" class="project-img" />
+          </div>
+          <h2 class="experience-sub-title project-title">HOSPITAL MANAGEMENT SYSTEM</h2>
+          <div class="btn-container">
+            <button class="btn btn-color-2 project-btn"
+              onclick="location.href='https://github.com/Sukhmangill977/hospital'">Github</button>
+            <button class="btn btn-color-2 project-btn"
+              onclick="location.href='https://hospital-liart-ten.vercel.app'">Live Demo</button>
+          </div>
+        </div>
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img src="./assets/project-3.png" alt="Project 3" class="project-img" />
+          </div>
+          <h2 class="experience-sub-title project-title">SPEECH-TO-TEXT APP</h2>
+          <div class="btn-container">
+            <button class="btn btn-color-2 project-btn"
+              onclick="location.href='https://github.com/Sukhmangill977/speech_to_text'">Github</button>
+            <button class="btn btn-color-2 project-btn"
+              onclick="location.href='https://speech-to-textbys.vercel.app'">Live Demo</button>
+          </div>
+        </div>
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img src="./assets/project-4.png" alt="Project 4" class="project-img" />
+          </div>
+          <h2 class="experience-sub-title project-title">ONLINE MEETING APP</h2>
+          <div class="btn-container">
+            <button class="btn btn-color-2 project-btn"
+              onclick="location.href='https://github.com/Sukhmangill977/video_meeting_app'">Github</button>
+            <button class="btn btn-color-2 project-btn"
+              onclick="location.href='https://edconnect-meeting.vercel.app/'">Live Demo</button>
+          </div>
+        </div>
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img src="./assets/project-6.png" alt="Project 6" class="project-img" />
+          </div>
+          <h2 class="experience-sub-title project-title">HEALTH MATRIC</h2>
+          <div class="btn-container">
+            <button class="btn btn-color-2 project-btn"
+              onclick="location.href='https://github.com/Sukhmangill977/mern-auth'">Github</button>
+            <button class="btn btn-color-2 project-btn"
+              onclick="location.href='https://health-matrix.onrender.com/'">Live Demo</button>
+          </div>
+        </div>
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img src="./assets/project-7.png" alt="Project 7" class="project-img" />
+          </div>
+          <h2 class="experience-sub-title project-title">ATRAINE</h2>
+          <div class="btn-container">
+            <button class="btn btn-color-2 project-btn"
+              onclick="location.href='https://github.com/Sukhmangill977/ATRAINE'">Github</button>
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://atraine.onrender.com/'">Live
+              Demo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" onclick="location.href='./#contact'" />
+  </section>
+  <!-- CERTIFICATES, COMMUNICATION, AND LANGUAGES SECTION -->
+  <section id="certificates-communication">
+    <div class="container">
+      <!-- Certificates Box -->
+      <div class="certificates-box">
+        <h1 class="title">CERTIFICATES</h1>
+        <ul class="certificate-list">
+          <li><strong>Cloud Computing with AWS</strong><br>
+            <a href="https://drive.google.com/file/d/1r5lQW2bN64PMDPA8hHy5XkVv_pvPvURc/view" target="_blank">Certificate
+              Link</a>
+          </li>
+          <li><strong>Software Development and IT Operation - DEVOPS</strong><br>
+            <a href="https://drive.google.com/file/d/1cmGS17sGnWl4_Nq77KoXqsWgAI9qbJbr/view" target="_blank">Certificate
+              Link</a>
+          </li>
+          <li><strong>Workshop on Virtual Lab</strong><br>
+            <a href="https://drive.google.com/file/d/1sEbKb0WGzat1V_RgE4yDRPC_xySDboBe/view" target="_blank">Certificate
+              Link</a>
+          </li>
+          <li><strong>Techhack 4.0</strong><br>
+            <a href="https://drive.google.com/file/d/1WVXRMO1x7xMpaYixxKrY3hLATTAC982x/view?usp=sharing"
+              target="_blank">Certificate Link</a>
+          </li>
+          <li><strong>Google Developers Student Club</strong><br>
+            <a href="https://drive.google.com/file/d/1wy-DhN957eVYApxFdDNktfa6fBBt_0Jg/view" target="_blank">Certificate
+              Link</a>
+          </li>
+          <li><strong>Mastering Web Semantics</strong><br>
+            <a href="https://drive.google.com/file/d/1qisRB7-R28Wxqsl_BRp640KROs78A0B7/view?usp=sharing"
+              target="_blank">Certificate Link</a>
+          </li>
+          <li><strong>AWS Academy Graduate</strong><br>
+            <a href="https://accounts.google.com/ServiceLogin?service=wise&passive=1209600&osid=1&continue=https://drive.google.com/file/d/11jZTHGzdUOskacuB9DynisusbGEAUrFI/view?usp%3Dsharing&followup=https://drive.google.com/file/d/11jZTHGzdUOskacuB9DynisusbGEAUrFI/view?usp%3Dsharing&authuser=0"
+              target="_blank">Certificate Link</a>
+          </li>
+          <li><strong>HTML,CSS,JavaScript,React Certifcation online-course</strong><br>
+            <a href="https://drive.google.com/file/d/1CDwWFfpJyIHkG3WE8G_BdO5Yjb6C7c48/view" target="_blank">Certificate
+              Link</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right Side - Communication and Languages Boxes -->
+<div class="right-boxes">
+  <!-- Communication Box -->
+  <div class="communication-box">
+    <h2>COMMUNICATION</h2>
+    <p>Complex Idea Translation</p>
+    <p>Effective Presentations</p>
+  </div>
+
+  <!-- Languages Box -->
+  <div class="languages-box">
+    <h2>LANGUAGES</h2>
+    <p>English (Business Professional)</p>
+    <p>Hindi (Business Professional)</p>
+    <p>Punjabi (Native Language)</p>
+  </div>
+
+  <!-- Publications Box -->
+  <div class="publication-box">
+    <h2>PUBLICATIONS</h2>
+    <p>• Integrating Semantic Web Technologies and Web 3.0 to Shape<br>
+      the World Wide Web (www) <br>
+      Journal Name: International Journal of Computer Science and<br> Management Studies (IJCSMS)</p>
+    <p>• Revolutionizing Healthcare: Leveraging AI and NLP to Empower<br>
+      Patients with Smarter, Data-Driven Medical Insights <br>
+      Journal Name: International Journal of Computer Applications <br>(IJCA)</p>
+  </div>
+</div>
+
+    </div>
+
+    <!-- Fireworks canvas -->
+    <canvas id="fireworks"></canvas>
+  </section>
+
+  <section id="contact">
+    <p class="section__text__p1">Get in Touch</p>
+    <h1 class="title">Contact Me</h1>
+
+    <!-- Handshake GIF -->
+    <img id="handshake-gif" src="https://i.pinimg.com/originals/5e/9c/b0/5e9cb00b04d678c46471d255ea682df1.gif"
+      alt="Handshake GIF" style="display: none; margin: 0 auto; width: 100px;" />
+
+    <div class="contact-info-upper-container" style="display: none;">
+      <div class="contact-info-container">
+        <img src="./assets/email.png" alt="Email icon" class="icon contact-icon email-icon" />
+        <p><a href="mailto:examplemail@gmail.com">sukhmangill977@gmail.com</a></p>
+      </div>
+      <div class="contact-info-container">
+        <img src="./assets/linkedin.png" alt="LinkedIn icon" class="icon contact-icon" />
+        <p><a href="https://www.linkedin.com/in/sukhman-gill-486741224/">LinkedIn</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <nav>
+      <div class="nav-links-container">
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    <p>Copyright &#169; 2023 Sukhman Gill. All Rights Reserved.</p>
+  </footer>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var typed = new Typed('.typed-text', {
+        strings: ["Frontend Developer", "UX Designer", "Web Developer"],
+        typeSpeed: 50,
+        backSpeed: 50,
+        loop: true
+      });
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Function to add 'visible' class when element is in viewport
+      function handleFadeIn() {
+        var elements = document.querySelectorAll('.fade-in');
+        var windowHeight = window.innerHeight;
+
+        elements.forEach(function (element) {
+          var elementTop = element.getBoundingClientRect().top;
+          if (elementTop < windowHeight - 100) {
+            element.classList.add('visible');
+          } else {
+            element.classList.remove('visible');
+          }
+        });
+      }
+
+      // Add scroll event listener
+      window.addEventListener('scroll', handleFadeIn);
+
+      // Initial check
+      handleFadeIn();
+    });
+  </script>
+  <script>
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function createFirework(x, y) {
+      for (let i = 0; i < 50; i++) {
+        particles.push({
+          x: x,
+          y: y,
+          angle: Math.random() * 360,
+          speed: Math.random() * 3 + 2,
+          radius: Math.random() * 3 + 1,
+          alpha: 1
+        });
+      }
+    }
+
+    function animateFireworks() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+        p.x += Math.cos(p.angle) * p.speed;
+        p.y += Math.sin(p.angle) * p.speed;
+        p.alpha -= 0.01;
+
+        if (p.alpha <= 0) {
+          particles.splice(i, 1);
+          i--;
+          continue;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 150, 0, ${p.alpha})`;
+        ctx.fill();
+      }
+
+      requestAnimationFrame(animateFireworks);
+    }
+
+    document.querySelectorAll('.certificates-box, .communication-box, .languages-box').forEach(box => {
+      box.addEventListener('mouseenter', function (e) {
+        const rect = this.getBoundingClientRect();
+        createFirework(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      });
+    });
+
+    animateFireworks();
+  </script>
+
+</body>
+
+</html>
