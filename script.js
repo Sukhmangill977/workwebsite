@@ -53,3 +53,12 @@ window.addEventListener('scroll', () => {
     navLinks.classList.toggle('active');
   });
 
+const toggleChatWindow = () => {
+  isChatOpen = !isChatOpen;
+  chatWindow.classList.toggle('hidden');
+
+  if (isChatOpen && !hasInitialized) {
+    startConversation();
+    hasInitialized = true;
+  }
+};
