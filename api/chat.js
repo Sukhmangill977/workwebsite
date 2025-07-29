@@ -1,5 +1,6 @@
 // api/chat.js
-import { GoogleGenAI } from "@google/genai/dist/node/index.mjs";
+
+import { GoogleGenAI } from "https://esm.sh/@google/genai@^1.11.0";
 
 const SYSTEM_INSTRUCTION = `
       You are a friendly and professional AI assistant for 'The Design', a creative SaaS solutions company. 
@@ -46,23 +47,20 @@ const SYSTEM_INSTRUCTION = `
     `;
 
 export default async function handler(req, res) {
-  console.log("🔑 GENAI_API_KEY present?", !!process.env.GENAI_API_KEY);
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).end("Method Not Allowed");
   }
-  console.log("📥 /api/chat payload:", JSON.stringify(req.body));
-  const { message, history } = req.body;
+
+  const { message } = req.body;
   if (!message) {
-    // early return so we don’t call chat.sendMessage with missing content
-    return res
-      .status(400)
-      .json({ error: "No message provided", received: req.body });
+    return res.status(400).json({ error: "No message provided." });
   }
+
   const apiKey = process.env.GENAI_API_KEY;
-//   const apiKey = "api_key" || process.env.GENAI_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: "API key not configured." });
+    console.error("GENAI_API_KEY not set");
+    return res.status(500).json({ error: "AI API key not configured." });
   }
 
   try {
@@ -72,16 +70,12 @@ export default async function handler(req, res) {
       config: { systemInstruction: SYSTEM_INSTRUCTION },
     });
 
-    // send user message + optional past history
-    const result = await chat.sendMessage({
-      message,
-      ...(history && { history })
-    });
+    const result = await chat.sendMessage({ message });
+    const text   = result.choices?.[0]?.message?.text?.trim() || "";
 
-    const text = result.choices?.[0]?.message?.text || "";
-    res.status(200).json({ text });
+    return res.status(200).json({ text });
   } catch (err) {
     console.error("AI error:", err);
-    res.status(500).json({ error: "AI request failed." });
+    return res.status(500).json({ error: "AI request failed." });
   }
 }

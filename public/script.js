@@ -9,34 +9,32 @@ const chatForm     = document.getElementById('chat-form');
 const chatInput    = document.getElementById('chat-input');
 const sendBtn      = document.getElementById('send-btn');
 
-let isChatOpen     = false;
-let hasInitialized = false;
+let isChatOpen = false;
 
-// Optional: keep a running history of the conversation
-// so you can send context back to the server for multi‑turn chats.
-const chatHistory = [];
-
-// --- UI HELPER FUNCTIONS ---
-function toggleChatWindow() {
+// Toggle chat open/closed
+function toggleChat() {
   isChatOpen = !isChatOpen;
   chatWindow.classList.toggle('hidden');
   chatIcon .classList.toggle('hidden');
-  if (isChatOpen && !hasInitialized) {
-    startConversation();
-    hasInitialized = true;
+  if (isChatOpen && chatBody.children.length === 0) {
+    // Kick things off with a greeting
+    addBotMessage("👋 Hi there! How can I help you with your design needs today?");
   }
 }
 
+// Utility to scroll
 function scrollToBottom() {
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-function setFormState(isLoading) {
-  chatInput.disabled = isLoading;
-  sendBtn .disabled = isLoading;
+// Enable/disable input while loading
+function setLoading(state) {
+  chatInput.disabled = state;
+  sendBtn.disabled  = state;
 }
 
-function showTypingIndicator() {
+// Show three‑dot typing indicator
+function showTyping() {
   const el = document.createElement('div');
   el.className = 'message-bubble bot-message typing-indicator';
   el.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
@@ -45,67 +43,60 @@ function showTypingIndicator() {
   return el;
 }
 
-function addMessage(author, text) {
+// Append a user message
+function addUserMessage(text) {
   const msg = document.createElement('div');
-  msg.className = `message-bubble ${author}-message`;
+  msg.className = 'message-bubble user-message';
   msg.textContent = text;
   chatBody.appendChild(msg);
   scrollToBottom();
-  return msg;
 }
 
-// --- CORE CHAT LOGIC ---
-async function streamResponse(userText) {
-  // add user message to UI + history
-  addMessage('user', userText);
-  chatHistory.push({ role: 'user', content: userText });
-
-  setFormState(true);
-  const typingEl = showTypingIndicator();
-
-  try {
-    const payload = {
-      message: userText,       // ← this is mandatory
-      history: chatHistory     // optional
-    };
-
-    const res = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    const { text, error } = await res.json();
-    if (error) throw new Error(error);
-
-    // update UI + history with bot reply
-    typingEl.remove();
-    addMessage('bot', text);
-    chatHistory.push({ role: 'assistant', content: text });
-  } catch (err) {
-    console.error(err);
-    typingEl.remove();
-    addMessage('bot', "Sorry, something went wrong. Please try again later.");
-  } finally {
-    setFormState(false);
-    chatInput.focus();
-  }
+// Append a bot message
+function addBotMessage(text) {
+  const msg = document.createElement('div');
+  msg.className = 'message-bubble bot-message';
+  msg.textContent = text;
+  chatBody.appendChild(msg);
+  scrollToBottom();
 }
 
-function handleFormSubmit(e) {
+// Handle form submit
+chatForm.addEventListener('submit', async e => {
   e.preventDefault();
   const text = chatInput.value.trim();
   if (!text) return;
   chatInput.value = '';
-  streamResponse(text);
-}
 
-function startConversation() {
-  // Optionally send an empty or “hello” message
-  // to trigger the system prompt on the first turn.
-  streamResponse('Hello');
-}
+  addUserMessage(text);
+  setLoading(true);
+  const typingEl = showTyping();
 
-// --- EVENT LISTENERS ---
-chatIcon    .addEventListener('click',   toggleChatWindow);
-closeChatBtn.addEventListener('click',   toggleChatWindow);
-chatForm    .addEventListener('submit',  handleFormSubmit);
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text })
+    });
+    const data = await res.json();
+    typingEl.remove();
+
+    if (!res.ok) {
+      console.error('Chat error payload:', data);
+      throw new Error(data.error || res.statusText);
+    }
+
+    addBotMessage(data.text);
+  } catch (err) {
+    console.error('Chat error:', err);
+    typingEl.remove();
+    addBotMessage("Sorry, something went wrong. Please try again later.");
+  } finally {
+    setLoading(false);
+    chatInput.focus();
+  }
+});
+
+// Wire up open/close buttons
+chatIcon    .addEventListener('click', toggleChat);
+closeChatBtn.addEventListener('click', toggleChat);
