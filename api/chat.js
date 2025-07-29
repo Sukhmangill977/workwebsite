@@ -46,6 +46,7 @@ const SYSTEM_INSTRUCTION = `
     `;
 
 export default async function handler(req, res) {
+  console.log("🔑 GENAI_API_KEY present?", !!process.env.GENAI_API_KEY);
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).end("Method Not Allowed");
