@@ -67,7 +67,10 @@ async function streamResponse(userText) {
     const res = await fetch('/api/chat', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ history: chatHistory })
+      body:    JSON.stringify({
+        message: userText,      // ← send the new message!
+        history: chatHistory
+      })
     });
     const { text, error } = await res.json();
     if (error) throw new Error(error);
