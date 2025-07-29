@@ -71,10 +71,9 @@ export default async function handler(req, res) {
       config: { systemInstruction: SYSTEM_INSTRUCTION },
     });
 
-    const result = await chat.sendMessage({ message });
-    const text   = result.choices?.[0]?.message?.text?.trim() || "";
+    const response = await chat.sendMessage(message);
+    return res.status(200).json({ text: response.text?.trim() || "" });
 
-    return res.status(200).json({ text });
   } catch (err) {
     console.error("AI error:", err);
     return res.status(500).json({ error: "AI request failed." });
