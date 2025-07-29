@@ -1,6 +1,7 @@
 // api/chat.js
 
-import { GoogleGenAI } from "https://esm.sh/@google/genai@^1.11.0";
+import { GoogleGenAI } from "@google/genai";
+
 
 const SYSTEM_INSTRUCTION = `
       You are a friendly and professional AI assistant for 'The Design', a creative SaaS solutions company. 
