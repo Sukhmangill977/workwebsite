@@ -1,0 +1,7 @@
+{
+  "name": "workwebsite",
+  "type": "module",
+  "dependencies": {
+    "@google/genai": "^1.11.0"
+  }
+}

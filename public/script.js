@@ -1,6 +1,3 @@
-// public/script.js
-
-// --- DOM ELEMENT REFERENCES ---
 const chatIcon     = document.getElementById('chat-icon');
 const chatWindow   = document.getElementById('chat-window');
 const closeChatBtn = document.getElementById('close-chat-btn');
@@ -9,34 +6,18 @@ const chatForm     = document.getElementById('chat-form');
 const chatInput    = document.getElementById('chat-input');
 const sendBtn      = document.getElementById('send-btn');
 
-let isChatOpen     = false;
-let hasInitialized = false;
-
-// Optional: keep a running history of the conversation
-// so you can send context back to the server for multi‑turn chats.
-const chatHistory = [];
-
-// --- UI HELPER FUNCTIONS ---
-function toggleChatWindow() {
-  isChatOpen = !isChatOpen;
-  chatWindow.classList.toggle('hidden');
-  chatIcon .classList.toggle('hidden');
-  if (isChatOpen && !hasInitialized) {
-    startConversation();
-    hasInitialized = true;
-  }
-}
+let isChatOpen = false;
 
 function scrollToBottom() {
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-function setFormState(isLoading) {
-  chatInput.disabled = isLoading;
-  sendBtn .disabled = isLoading;
+function setLoading(state) {
+  chatInput.disabled = state;
+  sendBtn.disabled  = state;
 }
 
-function showTypingIndicator() {
+function showTyping() {
   const el = document.createElement('div');
   el.className = 'message-bubble bot-message typing-indicator';
   el.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
@@ -45,62 +26,94 @@ function showTypingIndicator() {
   return el;
 }
 
-function addMessage(author, text) {
+function addUserMessage(text) {
   const msg = document.createElement('div');
-  msg.className = `message-bubble ${author}-message`;
+  msg.className = 'message-bubble user-message';
   msg.textContent = text;
   chatBody.appendChild(msg);
   scrollToBottom();
-  return msg;
 }
 
-// --- CORE CHAT LOGIC ---
-async function streamResponse(userText) {
-  // add user message to UI + history
-  addMessage('user', userText);
-  chatHistory.push({ role: 'user', content: userText });
+function addBotMessage(text) {
+  const msg = document.createElement('div');
+  msg.className = 'message-bubble bot-message';
+  msg.textContent = text;
+  chatBody.appendChild(msg);
+  scrollToBottom();
+}
 
-  setFormState(true);
-  const typingEl = showTypingIndicator();
+async function startConversation() {
+  setLoading(true);
+  const typingEl = showTyping();
 
   try {
     const res = await fetch('/api/chat', {
-      method:  'POST',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ history: chatHistory })
+      body: JSON.stringify({ message: 'Hello' })
     });
-    const { text, error } = await res.json();
-    if (error) throw new Error(error);
+    const data = await res.json();
+    typingEl.remove();
 
-    // update UI + history with bot reply
-    typingEl.remove();
-    addMessage('bot', text);
-    chatHistory.push({ role: 'assistant', content: text });
+    if (!res.ok) {
+      console.error('Chat error payload:', data);
+      throw new Error(data.error || res.statusText);
+    }
+    addBotMessage(data.text);
   } catch (err) {
-    console.error(err);
+    console.error('Chat error:', err);
     typingEl.remove();
-    addMessage('bot', "Sorry, something went wrong. Please try again later.");
+    addBotMessage("Sorry, something went wrong. Please try again later.");
   } finally {
-    setFormState(false);
+    setLoading(false);
     chatInput.focus();
   }
 }
 
-function handleFormSubmit(e) {
+chatForm.addEventListener('submit', async e => {
   e.preventDefault();
   const text = chatInput.value.trim();
   if (!text) return;
   chatInput.value = '';
-  streamResponse(text);
+
+  addUserMessage(text);
+  setLoading(true);
+  const typingEl = showTyping();
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text })
+    });
+    const data = await res.json();
+    typingEl.remove();
+
+    if (!res.ok) {
+      console.error('Chat error payload:', data);
+      throw new Error(data.error || res.statusText);
+    }
+    addBotMessage(data.text);
+  } catch (err) {
+    console.error('Chat error:', err);
+    typingEl.remove();
+    addBotMessage("Sorry, something went wrong. Please try again later.");
+  } finally {
+    setLoading(false);
+    chatInput.focus();
+  }
+});
+
+function toggleChat() {
+  isChatOpen = !isChatOpen;
+  chatWindow.classList.toggle('hidden');
+  chatIcon .classList.toggle('hidden');
+
+  
+  if (isChatOpen && chatBody.children.length === 0) {
+    startConversation();
+  }
 }
 
-function startConversation() {
-  // Optionally send an empty or “hello” message
-  // to trigger the system prompt on the first turn.
-  streamResponse('Hello');
-}
-
-// --- EVENT LISTENERS ---
-chatIcon    .addEventListener('click',   toggleChatWindow);
-closeChatBtn.addEventListener('click',   toggleChatWindow);
-chatForm    .addEventListener('submit',  handleFormSubmit);
+chatIcon    .addEventListener('click', toggleChat);
+closeChatBtn.addEventListener('click', toggleChat);
