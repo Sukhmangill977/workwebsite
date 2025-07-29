@@ -1,5 +1,3 @@
-// api/chat.js
-
 import { GoogleGenAI } from "@google/genai";
 
 
@@ -41,7 +39,7 @@ const SYSTEM_INSTRUCTION = `
 
       **CONTACT INFORMATION:**
       - **Email:** sukhmangill977@gmail.com
-      - **Instagram:** @the.print_
+      - **Instagram:** @
       ---
 
       Start the conversation by greeting the user and asking how you can help them with their design needs today.
