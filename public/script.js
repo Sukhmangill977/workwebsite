@@ -64,13 +64,15 @@ async function streamResponse(userText) {
   const typingEl = showTypingIndicator();
 
   try {
+    const payload = {
+      message: userText,       // ← this is mandatory
+      history: chatHistory     // optional
+    };
+
     const res = await fetch('/api/chat', {
-      method:  'POST',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({
-        message: userText,      // ← send the new message!
-        history: chatHistory
-      })
+      body: JSON.stringify(payload)
     });
     const { text, error } = await res.json();
     if (error) throw new Error(error);

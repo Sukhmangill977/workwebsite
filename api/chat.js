@@ -1,5 +1,5 @@
 // api/chat.js
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI } from "@google/genai/dist/node/index.mjs";
 
 const SYSTEM_INSTRUCTION = `
       You are a friendly and professional AI assistant for 'The Design', a creative SaaS solutions company. 
@@ -51,7 +51,14 @@ export default async function handler(req, res) {
     res.setHeader("Allow", "POST");
     return res.status(405).end("Method Not Allowed");
   }
+  console.log("📥 /api/chat payload:", JSON.stringify(req.body));
   const { message, history } = req.body;
+  if (!message) {
+    // early return so we don’t call chat.sendMessage with missing content
+    return res
+      .status(400)
+      .json({ error: "No message provided", received: req.body });
+  }
   const apiKey = process.env.GENAI_API_KEY;
 //   const apiKey = "api_key" || process.env.GENAI_API_KEY;
   if (!apiKey) {
